@@ -1,5 +1,4 @@
 import os
-from google import genai
 from google.genai import types
 from prompts import system_prompt
 
@@ -37,6 +36,6 @@ available_functions = types.Tool(
     function_declarations=[schema_get_files_info],
 )
 
-config=types.GenerateContentConfig(
+config = types.GenerateContentConfig(
     tools=[available_functions], system_instruction=system_prompt
 )

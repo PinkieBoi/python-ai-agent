@@ -1,4 +1,6 @@
 import os
+from google.genai import types
+from prompts import system_prompt
 
 
 def get_file_content(working_directory, file_path):
@@ -16,3 +18,25 @@ def get_file_content(working_directory, file_path):
     except Exception as e:
         return f'Error: {str(e)}'
     return content
+
+schema_get_file_content = types.FunctionDeclaration(
+    name="get_file_content",
+    description="Outputs the contents of a file, truncated to 10,000 characters",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file": types.Schema(
+                type=types.Type.STRING,
+                description="The file to list contents from."
+            ),
+        },
+    ),
+)
+
+available_functions = types.Tool(
+    function_declarations=[schema_get_file_content],
+)
+
+config=types.GenerateContentConfig(
+    tools=[available_functions], system_instruction=system_prompt
+)

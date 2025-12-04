@@ -1,5 +1,7 @@
 import os
 import subprocess
+from google.genai import types
+from prompts import system_prompt
 
 
 def run_python_file(working_directory, file_path, args=[]):
@@ -27,3 +29,25 @@ def run_python_file(working_directory, file_path, args=[]):
     finally:
         return f'STDOUT: {res.stdout}\nSTDERR: {res.stderr}'
  
+
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description="Runs the specified python file.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "python_file": types.Schema(
+                type=types.Type.STRING,
+                description="The python file to be run by the agent."
+            ),
+        },
+    ),
+)
+ 
+available_functions = types.Tool(
+    function_declarations=[schema_run_python_file],
+) 
+
+config = types.GenerateContentConfig(
+    tools=[available_functions], system_instruction=system_prompt
+)
