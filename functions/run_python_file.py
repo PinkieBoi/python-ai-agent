@@ -36,9 +36,14 @@ schema_run_python_file = types.FunctionDeclaration(
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
-            "python_file": types.Schema(
+            "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="The python file to be run by the agent."
+                description="Path to the python file to be run."
+            ),
+            "args": types.Schema(
+                type=types.Type.ARRAY,
+                description="List of arguments to pass to the python file.",
+                items=types.Schema(type=types.Type.STRING),
             ),
         },
     ),
