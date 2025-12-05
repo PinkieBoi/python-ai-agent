@@ -18,7 +18,7 @@ all_available_functions = types.Tool(
 def call_function(function_call_part: types.FunctionCall, verbose=False):
     function_name = function_call_part.name
     function_args = function_call_part.args
-    working_dir = "calculator"
+    working_dir = "./calculator"
     funcs_available = {
         "get_file_content": get_file_content,
         "get_files_info": get_files_info,
