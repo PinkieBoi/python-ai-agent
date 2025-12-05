@@ -71,15 +71,15 @@ def main():
                     print(f"Error: {e}")
                 if args.verbose:
                     print(f"-> {result.parts[0].function_response.response}")
-            for res_part in res_parts:
-                messages.append(
-                    types.Content(
-                        role="user",
-                        parts=[res_part]
-                    )
+            if not res_parts:
+                raise Exception("No responses generated. Exiting.")
+            messages.append(
+                types.Content(
+                    role="user",
+                    parts=res_parts
                 )
+            )
         i += 1
-
 
 
 if __name__ == "__main__":

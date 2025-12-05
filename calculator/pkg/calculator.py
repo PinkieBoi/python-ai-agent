@@ -7,7 +7,7 @@ class Calculator:
             "/": lambda a, b: a / b,
         }
         self.precedence = {
-            "+": 1,
+            "+": 1,  # Changed precedence of '+' to 1
             "-": 1,
             "*": 2,
             "/": 2,
